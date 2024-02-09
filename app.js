@@ -9,6 +9,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+// Add express-oas-generator middleware
+expressOasGenerator.init(app, {});
+
 const port = 3000;
 
 // view engine setup
@@ -24,23 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Define your routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-// Add express-oas-generator middleware
-expressOasGenerator.init(app, {
-  swaggerInfo: {
-    title: 'Your API Documentation',
-    description: 'Description of your API',
-    version: '1.0.0',
-  },
-  swaggerUIPath: '/api-docs',
-  exposeSwaggerUI: true,
-  apiDocsPath: '/api-docs.json',
-});
-
-// Catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 
 // Error handler
 app.use(function(err, req, res, next) {
